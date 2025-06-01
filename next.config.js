@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   images: {
+    unoptimized: true,
     domains: ['images.unsplash.com', 'picsum.photos'],
     remotePatterns: [
       {
@@ -37,6 +39,7 @@ const nextConfig = {
 
     return config;
   },
+  trailingSlash: true,
 }
 
 module.exports = nextConfig 
