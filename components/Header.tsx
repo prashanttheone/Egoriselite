@@ -17,9 +17,9 @@ const Header = () => {
     <header className="bg-white shadow-md fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          <img src="/image/log.png" alt="" />
           <Link href="/" className="flex items-center">
-            <span className="text-2xl font-bold gradient-text">Egorise</span>
+          <span className="text-2xl font-bold text-red-600">Ego</span><span className='text-2xl font-bold text-black-600'>TechLife</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -30,9 +30,9 @@ const Footer = () => {
             <div className="space-y-2">
               <p className="text-gray-400">
                 <strong>Delhi Office:</strong><br />
-                123 Electronics Park,<br />
-                Sector 62, Noida,<br />
-                Uttar Pradesh 201301
+                Plot No. 123, Industrial Area,<br />
+                Phase 2, Sector 63,<br />
+                Noida, Uttar Pradesh 201301
               </p>
               <p className="text-gray-400">
                 <strong>Phone:</strong> +91 98765 43210<br />
@@ -45,26 +45,13 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
-                  Products
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="text-gray-400 hover:text-white transition-colors">
-                  Careers
-                </Link>
-              </li>
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -72,11 +59,6 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Our Products</h4>
             <ul className="space-y-2">
-              <li>
-                <Link href="/products/refrigerators" className="text-gray-400 hover:text-white transition-colors">
-                  Refrigerators
-                </Link>
-              </li>
               <li>
                 <Link href="/products/washing-machines" className="text-gray-400 hover:text-white transition-colors">
                   Washing Machines
