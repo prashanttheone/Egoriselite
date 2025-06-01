@@ -3,13 +3,15 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getOptimizedImage } from '../utils/imageUtils';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
 const slides = [
   {
     id: 1,
     title: 'Smart Home Appliances',
     description: 'Experience the future of home living with our innovative smart appliances',
-    image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1920&q=80',
+    image: '/images/smart-home.jpg',
     link: '/products',
     buttonText: 'Shop Now'
   },
@@ -17,15 +19,15 @@ const slides = [
     id: 2,
     title: 'Energy Efficient Solutions',
     description: 'Save energy and money with our eco-friendly appliances',
-    image: 'https://images.unsplash.com/photo-1581093458791-9d15482442f6?auto=format&fit=crop&w=1920&q=80',
+    image: '/images/energy-efficient.jpg',
     link: '/products',
     buttonText: 'Explore'
   },
   {
     id: 3,
-    title: 'Premium Quality',
-    description: 'Discover our range of high-quality home appliances',
-    image: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=1920&q=80',
+    title: 'Smart Home Solutions',
+    description: 'Transform your home with our innovative smart appliances',
+    image: '/images/smart-solutions.jpg',
     link: '/products',
     buttonText: 'Learn More'
   }
@@ -55,7 +57,7 @@ export default function HeroSlider() {
   };
 
   return (
-    <div className="relative h-[600px] overflow-hidden">
+    <div className="relative h-[calc(100vh-4rem)] overflow-hidden">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -67,23 +69,20 @@ export default function HeroSlider() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <Image
-              src={slide.image}
-              alt={slide.title}
-              fill
+              {...getOptimizedImage(slide.image, slide.title, 1920, 1080, index === 0)}
               className="object-cover"
-              priority={index === 0}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
           </div>
 
           {/* Content */}
           <div className="relative h-full flex items-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
               <div className="max-w-2xl">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 gradient-text">
                   {slide.title}
                 </h1>
-                <p className="text-xl md:text-2xl mb-8 text-gray-200">
+                <p className="text-xl md:text-2xl mb-8 text-gray-200 font-medium">
                   {slide.description}
                 </p>
                 <Link
@@ -101,41 +100,17 @@ export default function HeroSlider() {
       {/* Navigation Arrows */}
       <button
         onClick={goToPrevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors duration-300"
+        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors duration-300 backdrop-blur-sm"
         aria-label="Previous slide"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
+        <FiChevronLeft className="w-6 h-6" />
       </button>
       <button
         onClick={goToNextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors duration-300"
+        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 text-white p-2 rounded-full transition-colors duration-300 backdrop-blur-sm"
         aria-label="Next slide"
       >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
+        <FiChevronRight className="w-6 h-6" />
       </button>
 
       {/* Slide Indicators */}
@@ -145,7 +120,7 @@ export default function HeroSlider() {
             key={index}
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-              index === currentSlide ? 'bg-white' : 'bg-white/50'
+              index === currentSlide ? 'gradient-bg' : 'bg-white/50'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

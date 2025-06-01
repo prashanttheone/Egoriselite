@@ -2,6 +2,8 @@
 
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { FiMail, FiPhone, FiMapPin, FiFacebook, FiTwitter, FiInstagram, FiLinkedin } from 'react-icons/fi'
 
 const quickLinks = [
   { name: 'About Us', href: '/about' },
@@ -19,40 +21,40 @@ const socialLinks = [
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold gradient-text">Egorise</h3>
-            <p className="text-gray-400">
-              Leading manufacturer of premium home appliances and electronics in Delhi NCR.
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/images/logo.png"
+                alt="Egorise Logo"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full"
+              />
+              <div className="flex items-center">
+                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">Ego</span>
+                <span className="text-2xl font-bold text-white">TechLife</span>
+              </div>
+            </Link>
+            <p className="text-gray-400 mt-4">
+              Leading manufacturer of innovative home appliances, committed to quality and sustainability.
             </p>
-            <div className="space-y-2">
-              <p className="text-gray-400">
-                <strong>Delhi Office:</strong><br />
-                123 Electronics Park,<br />
-                Sector 62, Noida,<br />
-                Uttar Pradesh 201301
-              </p>
-              <p className="text-gray-400">
-                <strong>Phone:</strong> +91 98765 43210<br />
-                <strong>Email:</strong> info@egorise.com
-              </p>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                  About Us
-                </Link>
-              </li>
               <li>
                 <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
                   Products
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                  About Us
                 </Link>
               </li>
               <li>
@@ -60,66 +62,50 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link href="/careers" className="text-gray-400 hover:text-white transition-colors">
-                  Careers
-                </Link>
-              </li>
             </ul>
           </div>
 
-          {/* Products */}
+          {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Our Products</h4>
+            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/products/refrigerators" className="text-gray-400 hover:text-white transition-colors">
-                  Refrigerators
-                </Link>
+              <li className="flex items-center space-x-2">
+                <FiMapPin className="text-gray-400" />
+                <span className="text-gray-400">123 Industrial Area, City, Country</span>
               </li>
-              <li>
-                <Link href="/products/washing-machines" className="text-gray-400 hover:text-white transition-colors">
-                  Washing Machines
-                </Link>
+              <li className="flex items-center space-x-2">
+                <FiPhone className="text-gray-400" />
+                <span className="text-gray-400">+1 234 567 890</span>
               </li>
-              <li>
-                <Link href="/products/televisions" className="text-gray-400 hover:text-white transition-colors">
-                  Televisions
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/air-coolers" className="text-gray-400 hover:text-white transition-colors">
-                  Air Coolers
-                </Link>
+              <li className="flex items-center space-x-2">
+                <FiMail className="text-gray-400" />
+                <span className="text-gray-400">info@egorise.com</span>
               </li>
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Social Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
-            <p className="text-gray-400 mb-4">
-              Subscribe to our newsletter for updates and offers.
-            </p>
-            <form className="space-y-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-blue-500"
-              />
-              <button
-                type="submit"
-                className="w-full gradient-button"
-              >
-                Subscribe
-              </button>
-            </form>
+            <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FiFacebook className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FiTwitter className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FiInstagram className="w-6 h-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <FiLinkedin className="w-6 h-6" />
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Egorise. All rights reserved.</p>
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Ego TechLife. All rights reserved.</p>
         </div>
       </div>
     </footer>

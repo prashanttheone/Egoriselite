@@ -81,11 +81,11 @@ export default function AboutSection() {
             className="relative h-[500px] w-full"
           >
             <Image
-              src="https://picsum.photos/seed/company/800/1000"
+              src="https://5.imimg.com/data5/DR/GG/MY-8899789/62_a-1000x1000.jpeg"
               alt="Company"
               fill
               className="object-cover rounded-lg shadow-xl"
-              sizes="(max-width: 768px) 100vw, 50vw"
+             
               priority
             />
           </motion.div>
@@ -131,7 +131,7 @@ export default function AboutSection() {
               whileTap={{ scale: 0.95 }}
               className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
             >
-              Learn More
+              Know More
             </motion.button>
           </motion.div>
         </div>

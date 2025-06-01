@@ -170,14 +170,14 @@ export default function ProductDetailPage({ params }: { params: { category: stri
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4">
+          {/* <div className="flex gap-4">
             <button className="gradient-button flex-1">
               Add to Cart
             </button>
             <button className="outline-button flex-1">
               Buy Now
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 

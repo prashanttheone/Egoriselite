@@ -3,13 +3,6 @@ import Link from 'next/link';
 
 const productCategories = [
   {
-    id: 1,
-    name: 'Refrigerators',
-    description: 'Smart refrigerators with advanced cooling technology',
-    image: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=800&q=80',
-    count: 8,
-  },
-  {
     id: 2,
     name: 'Washing Machines',
     description: 'Front and top load washing machines with multiple programs',
@@ -33,14 +26,6 @@ const productCategories = [
 ];
 
 const featuredProducts = [
-  {
-    id: 1,
-    name: 'Smart Frost-Free Refrigerator',
-    category: 'refrigerators',
-    price: '₹45,999',
-    image: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=800&q=80',
-    features: ['Smart Temperature Control', 'Energy Efficient', 'Frost Free'],
-  },
   {
     id: 2,
     name: 'Front Load Washing Machine',
@@ -91,7 +76,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Product Categories */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 place-items-center">
         <h2 className="section-title text-center">Product Categories</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {productCategories.map((category) => (
@@ -122,7 +107,7 @@ export default function ProductsPage() {
       <section className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="section-title text-center">Featured Products</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 ">
             {featuredProducts.map((product) => (
               <div key={product.id} className="card group">
                 <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
@@ -167,7 +152,7 @@ export default function ProductsPage() {
           </div>
           <div className="card text-center">
             <div className="text-4xl mb-4">🛡️</div>
-            <h3 className="text-xl font-semibold mb-2">2 Year Warranty</h3>
+            <h3 className="text-xl font-semibold mb-2">Warrenty On Products</h3>
             <p className="text-gray-600">
               Extended warranty available on all products
             </p>

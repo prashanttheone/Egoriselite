@@ -10,19 +10,32 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-gradient-to-br from-gray-50 to-gray-100;
   }
 }
 
 @layer components {
-  .gradient-button {
-    @apply px-6 py-3 rounded-lg text-white font-semibold transition-all duration-300 
-           bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
-           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 font-bold;
   }
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800;
+  .gradient-bg {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600;
+  }
+
+  .gradient-button {
+    @apply px-6 py-3 rounded-lg font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 
+    hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg 
+    hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .gradient-border {
+    @apply border-2 border-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-padding;
+  }
+
+  .gradient-card {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
+    border border-gray-100 hover:border-blue-100;
   }
 
   .nav-link {
@@ -47,4 +60,22 @@
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-blue-600 to-purple-600 rounded-full;
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-colors duration-200;
 } 
