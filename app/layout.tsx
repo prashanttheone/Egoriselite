@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-
+import WhatsAppFloatingButton from '@/components/WhatsAppFloatingButton'
 const inter = Inter({ subsets: ['latin'] });
 
 export const viewport: Viewport = {
@@ -33,6 +33,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-grow">
           {children}
+          <WhatsAppFloatingButton />
         </main>
         <Footer />
       </body>
