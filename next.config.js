@@ -21,7 +21,6 @@ const nextConfig = {
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
   },
   webpack: (config, { isServer }) => {
-    // Optimize images
     config.module.rules.push({
       test: /\.(png|jpe?g|gif|svg)$/i,
       use: [
@@ -40,6 +39,6 @@ const nextConfig = {
     return config;
   },
   trailingSlash: true,
-}
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig;
