@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --secondary-gradient: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer components {
+  .gradient-button {
+    @apply px-6 py-3 rounded-lg text-white font-semibold transition-all duration-300 
+           bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800;
+  }
+
+  .nav-link {
+    @apply text-gray-600 hover:text-blue-600 transition-colors duration-300;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-8 gradient-text;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+} 
