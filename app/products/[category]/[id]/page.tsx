@@ -109,9 +109,8 @@ const products = {
   ],
 };
 
-// Generate all possible paths for static generation
 export async function generateStaticParams() {
-  const categories = Object.keys(products) as (keyof typeof products)[];
+  const categories = Object.keys(products) as Array<keyof typeof products>;
   return categories.flatMap((category) =>
     products[category].map((product) => ({
       category,
@@ -125,9 +124,30 @@ export default function ProductDetailPage({
 }: {
   params: { category: string; id: string };
 }) {
-  const category = params.category as keyof typeof products;
-  const productId = parseInt(params.id);
-  const product = products[category]?.find((p) => p.id === productId);
+  const { category, id } = params;
+  const productId = parseInt(id);
+
+  if (
+    !Object.prototype.hasOwnProperty.call(products, category) ||
+    !products[category as keyof typeof products]
+  ) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">
+            Category Not Found
+          </h1>
+          <Link href="/products" className="gradient-button">
+            Back to Products
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const product = products[category as keyof typeof products].find(
+    (p) => p.id === productId
+  );
 
   if (!product) {
     return (
@@ -147,7 +167,6 @@ export default function ProductDetailPage({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Product Image */}
         <div className="relative h-[500px] rounded-xl overflow-hidden">
           <Image
             src={product.image}
@@ -158,7 +177,6 @@ export default function ProductDetailPage({
           />
         </div>
 
-        {/* Product Info */}
         <div className="space-y-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-4">
@@ -170,12 +188,11 @@ export default function ProductDetailPage({
             <p className="text-gray-600">{product.description}</p>
           </div>
 
-          {/* Features */}
           <div>
             <h2 className="text-xl font-semibold mb-4">Key Features</h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {product.features.map((feature, index) => (
-                <li key={index} className="flex items-center text-gray-600">
+              {product.features.map((feature, i) => (
+                <li key={i} className="flex items-center text-gray-600">
                   <span className="text-blue-500 mr-2">✓</span>
                   {feature}
                 </li>
@@ -183,7 +200,6 @@ export default function ProductDetailPage({
             </ul>
           </div>
 
-          {/* Specifications */}
           <div>
             <h2 className="text-xl font-semibold mb-4">Specifications</h2>
             <div className="bg-gray-50 rounded-lg p-6">
@@ -205,32 +221,34 @@ export default function ProductDetailPage({
         </div>
       </div>
 
-      {/* Related Products */}
       <div className="mt-20">
         <h2 className="section-title text-center mb-8">You May Also Like</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products[category].slice(0, 3).map((relatedProduct) => (
-            <Link
-              key={relatedProduct.id}
-              href={`/products/${category}/${relatedProduct.id}`}
-              className="card group"
-            >
-              <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
-                <Image
-                  src={relatedProduct.image}
-                  alt={relatedProduct.name}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">
-                {relatedProduct.name}
-              </h3>
-              <p className="text-2xl font-bold text-blue-600">
-                {relatedProduct.price}
-              </p>
-            </Link>
-          ))}
+          {products[category as keyof typeof products]
+            .filter((p) => p.id !== productId)
+            .slice(0, 3)
+            .map((relatedProduct) => (
+              <Link
+                key={relatedProduct.id}
+                href={`/products/${category}/${relatedProduct.id}`}
+                className="card group"
+              >
+                <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
+                  <Image
+                    src={relatedProduct.image}
+                    alt={relatedProduct.name}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {relatedProduct.name}
+                </h3>
+                <p className="text-2xl font-bold text-blue-600">
+                  {relatedProduct.price}
+                </p>
+              </Link>
+            ))}
         </div>
       </div>
     </div>
