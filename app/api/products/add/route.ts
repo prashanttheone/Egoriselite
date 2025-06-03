@@ -1,8 +1,10 @@
 // app/api/products/add/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { uploadImageToCloudinary } from '@/lib/cloudinary';
+import { uploadImageToCloudinary,testExport  } from '@/lib/cloudinary';
 import { createClient } from '@supabase/supabase-js';
 
+
+console.log(testExport);
 // Setup Supabase client
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -16,14 +18,21 @@ export async function POST(req: NextRequest) {
     const price = formData.get('price')?.toString() || '';
     const category = formData.get('category')?.toString() || '';
     const description = formData.get('description')?.toString() || '';
-    const imageFile = formData.get('image') as Blob | null;
+    const imageFile = formData.get('image') as File | null;
 
     if (!imageFile || !name || !price || !category || !description) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    // Convert file to Buffer
+    const arrayBuffer = await imageFile.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    // Use a filename (you can use name + timestamp or UUID)
+    const filename = `${name.replace(/\s+/g, '_')}_${Date.now()}`;
+
     // Upload image to Cloudinary
-    const imageUrl = await uploadImageToCloudinary(imageFile as File);
+    const imageUrl = await uploadImageToCloudinary(buffer, filename);
 
     // Save product to Supabase
     const { data, error } = await supabase.from('products').insert({
