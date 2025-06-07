@@ -28,7 +28,6 @@ export async function POST(req: NextRequest) {
         imageUrl,
       },
     });
-    console.log("product:",product);
     return NextResponse.json({ message: 'Product added', product }, { status: 201 });
   } catch (error) {
     console.error('Error adding product:', error);
