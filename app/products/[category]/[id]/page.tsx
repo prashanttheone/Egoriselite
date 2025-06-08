@@ -1,153 +1,28 @@
+// app/products/[category]/[id]/page.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 
-// Dummy product data
-const products = {
-  refrigerators: [
-    {
-      id: 1,
-      name: 'Smart Frost-Free Refrigerator',
-      price: '₹45,999',
-      description:
-        'Experience the future of refrigeration with our Smart Frost-Free Refrigerator. Featuring advanced cooling technology, smart temperature control, and energy-efficient operation.',
-      image:
-        'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=800&q=80',
-      features: [
-        'Smart Temperature Control',
-        'Energy Efficient',
-        'Frost Free',
-        'LED Display',
-        'Multi-Air Flow',
-        'Holiday Mode',
-      ],
-      specifications: {
-        capacity: '350L',
-        color: 'Silver',
-        dimensions: '70 x 75 x 175 cm',
-        warranty: '2 Years',
-        energyRating: '5 Star',
-      },
-    },
-  ],
-  'washing-machines': [
-    {
-      id: 2,
-      name: 'Front Load Washing Machine',
-      price: '₹32,999',
-      description:
-        'Our Front Load Washing Machine combines efficiency with convenience. Multiple wash programs, quick wash options, and energy-saving features make laundry day a breeze.',
-      image:
-        'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=800&q=80',
-      features: [
-        'Multiple Wash Programs',
-        'Quick Wash',
-        'Energy Saving',
-        'Steam Wash',
-        'Child Lock',
-        'Delay Start',
-      ],
-      specifications: {
-        capacity: '8kg',
-        color: 'White',
-        dimensions: '60 x 85 x 60 cm',
-        warranty: '2 Years',
-        energyRating: '4 Star',
-      },
-    },
-  ],
-  televisions: [
-    {
-      id: 3,
-      name: '55" 4K Smart TV',
-      price: '₹54,999',
-      description:
-        'Immerse yourself in stunning visuals with our 55" 4K Smart TV. Crystal clear picture quality, smart features, and voice control make entertainment more engaging.',
-      image:
-        'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=800&q=80',
-      features: [
-        '4K Resolution',
-        'Smart Features',
-        'Voice Control',
-        'HDR Support',
-        'Multiple HDMI Ports',
-        'Built-in WiFi',
-      ],
-      specifications: {
-        screenSize: '55 inches',
-        resolution: '3840 x 2160',
-        refreshRate: '60Hz',
-        warranty: '2 Years',
-        ports: '4 HDMI, 2 USB',
-      },
-    },
-  ],
-  'air-coolers': [
-    {
-      id: 4,
-      name: 'Smart Air Cooler',
-      price: '₹24,999',
-      description:
-        'Stay cool and comfortable with our Smart Air Cooler. Energy-efficient operation, smart control, and air purification features ensure a healthy and pleasant environment.',
-      image:
-        'https://images.unsplash.com/photo-1581093458791-9d15482442f6?auto=format&fit=crop&w=800&q=80',
-      features: [
-        'Smart Control',
-        'Energy Efficient',
-        'Air Purification',
-        'Auto Mode',
-        'Sleep Mode',
-        'Timer Function',
-      ],
-      specifications: {
-        coverage: '400 sq ft',
-        tankCapacity: '20L',
-        powerConsumption: '65W',
-        warranty: '2 Years',
-        noiseLevel: '45dB',
-      },
-    },
-  ],
-};
+export const dynamic = 'force-dynamic'; // Optional: to force fresh fetch per request
 
-export async function generateStaticParams() {
-  const categories = Object.keys(products) as Array<keyof typeof products>;
-  return categories.flatMap((category) =>
-    products[category].map((product) => ({
-      category,
-      id: product.id.toString(),
-    }))
-  );
+async function getProducts() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+    cache: 'no-store', // or 'force-cache' if desired
+  });
+  if (!res.ok) throw new Error('Failed to fetch products');
+  return res.json();
 }
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
   params: { category: string; id: string };
 }) {
   const { category, id } = params;
-  const productId = parseInt(id);
-
-  if (
-    !Object.prototype.hasOwnProperty.call(products, category) ||
-    !products[category as keyof typeof products]
-  ) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Category Not Found
-          </h1>
-          <Link href="/products" className="gradient-button">
-            Back to Products
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  const product = products[category as keyof typeof products].find(
-    (p) => p.id === productId
+  const allProducts = await getProducts();
+  const productsInCategory = allProducts.filter(
+    (p: any) => p.category === category
   );
+  const product = productsInCategory.find((p: any) => p.id === id);
 
   if (!product) {
     return (
@@ -169,7 +44,7 @@ export default function ProductDetailPage({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="relative h-[500px] rounded-xl overflow-hidden">
           <Image
-            src={product.image}
+            src={product.imageUrl}
             alt={product.name}
             fill
             className="object-cover"
@@ -178,64 +53,31 @@ export default function ProductDetailPage({
         </div>
 
         <div className="space-y-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              {product.name}
-            </h1>
-            <p className="text-3xl font-bold text-blue-600 mb-6">
-              {product.price}
-            </p>
-            <p className="text-gray-600">{product.description}</p>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Key Features</h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {product.features.map((feature, i) => (
-                <li key={i} className="flex items-center text-gray-600">
-                  <span className="text-blue-500 mr-2">✓</span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Specifications</h2>
-            <div className="bg-gray-50 rounded-lg p-6">
-              <dl className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(product.specifications).map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="flex justify-between py-2 border-b border-gray-200"
-                  >
-                    <dt className="text-gray-600 capitalize">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </dt>
-                    <dd className="font-medium text-gray-900">{value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            {product.name}
+          </h1>
+          <p className="text-3xl font-bold text-blue-600 mb-6">
+            ₹{product.price}
+          </p>
+          <p className="text-gray-600">{product.description}</p>
         </div>
       </div>
 
       <div className="mt-20">
         <h2 className="section-title text-center mb-8">You May Also Like</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {products[category as keyof typeof products]
-            .filter((p) => p.id !== productId)
+          {productsInCategory
+            .filter((p: any) => p.id !== id)
             .slice(0, 3)
-            .map((relatedProduct) => (
+            .map((relatedProduct: any) => (
               <Link
                 key={relatedProduct.id}
-                href={`/products/${category}/${relatedProduct.id}`}
+                href={`/products/${relatedProduct.category}/${relatedProduct.id}`}
                 className="card group"
               >
                 <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
                   <Image
-                    src={relatedProduct.image}
+                    src={relatedProduct.imageUrl}
                     alt={relatedProduct.name}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -245,7 +87,7 @@ export default function ProductDetailPage({
                   {relatedProduct.name}
                 </h3>
                 <p className="text-2xl font-bold text-blue-600">
-                  {relatedProduct.price}
+                  ₹{relatedProduct.price}
                 </p>
               </Link>
             ))}
