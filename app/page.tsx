@@ -5,7 +5,7 @@ import AboutSection from '../components/AboutSection'
 import TestimonialsSlider from '../components/TestimonialsSlider'
 import EnquirySection from '../components/EnquirySection'
 import ContactSection from '../components/ContactSection'
-
+import Display from '@/components/displayproduct/Display'
 const featuredProducts = [
 
   {
@@ -58,9 +58,10 @@ export default function Home() {
   return (
     <main>
       <HeroSlider />
+         <Display />
       <AboutSection />
-      <TestimonialsSlider />
-      <EnquirySection />
+      {/* <TestimonialsSlider />*/}
+      {/* <EnquirySection /> */}
       <ContactSection />
     </main>
   )

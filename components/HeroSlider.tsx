@@ -11,7 +11,7 @@ const slides = [
     id: 1,
     title: 'Smart Home Appliances',
     description: 'Experience the future of home living with our innovative smart appliances',
-    image: '/images/smart-home.jpg',
+    image: '/images/slider.avif',
     link: '/products',
     buttonText: 'Shop Now'
   },
@@ -19,7 +19,7 @@ const slides = [
     id: 2,
     title: 'Energy Efficient Solutions',
     description: 'Save energy and money with our eco-friendly appliances',
-    image: '/images/energy-efficient.jpg',
+    image: '/images/slider 1.avif',
     link: '/products',
     buttonText: 'Explore'
   },
@@ -27,7 +27,7 @@ const slides = [
     id: 3,
     title: 'Smart Home Solutions',
     description: 'Transform your home with our innovative smart appliances',
-    image: '/images/smart-solutions.jpg',
+    image: '/images/slider3.avif',
     link: '/products',
     buttonText: 'Learn More'
   }

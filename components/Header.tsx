@@ -19,9 +19,9 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="bg-white shadow-md fixed w-full top-0 z-50">
+   <header className="bg-gradient-to-b from-blue-600 to-blue-300 shadow-md fixed w-full top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 ">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <span className="text-2xl font-bold text-red-600">Ego</span> <span className="text-2xl font-bold text-black">TechLife</span>
@@ -29,16 +29,16 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-800 hover:text-blue-600 transition-colors">
+            <Link href="/" className="text-gray-800 hover:text-blue-600 transition-colors font-bold text-xl">
               Home
             </Link>
-            <Link href="/products" className="text-gray-800 hover:text-blue-600 transition-colors">
+            <Link href="/products" className="text-gray-800 hover:text-blue-600 transition-colors font-bold text-xl">
               Products
             </Link>
-            <Link href="/about" className="text-gray-800 hover:text-blue-600 transition-colors">
+            <Link href="/about" className="text-gray-800 hover:text-blue-600 transition-colors font-bold text-xl">
               About
             </Link>
-            <Link href="/contact" className="text-gray-800 hover:text-blue-600 transition-colors">
+            <Link href="/contact" className="text-gray-800 hover:text-blue-600 transition-colors font-bold text-xl">
               Contact
             </Link>
           </nav>
@@ -60,7 +60,7 @@ const Header = () => {
               <Link href="/" className="text-gray-800 hover:text-blue-600 transition-colors px-4 py-2">
                 Home
               </Link>
-              <Link href="/products" className="text-gray-800 hover:text-blue-600 transition-colors px-4 py-2">
+              <Link href="/home" className="text-gray-800 hover:text-blue-600 transition-colors px-4 py-2">
                 Products
               </Link>
               <Link href="/about" className="text-gray-800 hover:text-blue-600 transition-colors px-4 py-2">

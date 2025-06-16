@@ -18,7 +18,8 @@ const offices = [
     email: 'support@egorise.com',
     hours: 'Mon - Sat: 8:00 AM - 8:00 PM',
   },
-];
+]
+
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
